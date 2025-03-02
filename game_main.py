@@ -13,6 +13,7 @@ def battle_cycle() -> int:
 
         print("выберите действие:\n  attack (-2 энергии)\n  inventory\n  skip (+1 енергия)\n  check stats\n  exit")
         action = input("> ").replace(' ', '')
+
         while(action not in data.player_actions):
             print("неизвестное действие!\n")
             action = input("> ").replace(' ', '')
@@ -33,11 +34,13 @@ def battle_cycle() -> int:
         elif(action == data.player_actions[2]): # инвентарь
             continue
         
-        elif(action == data.player_actions[3]):
+        elif(action == data.player_actions[3]): # скип
             if(data.player_stats[4] < 10):
                 data.player_stats[4] += 1    
+            print()
         
-        elif(action == data.player_actions[4]):
+        elif(action == data.player_actions[4]): # выход
+            print("выход...")
             return 2
         
         

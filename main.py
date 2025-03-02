@@ -5,8 +5,6 @@ import ctypes
 file_name = "save_data.txt"
 
 """
-структура файла сохранения:
-
 p\ <- от слова player
 урон_игрока хп_игрока баланс_игрока уровень_игрока енергия_игрока отражаемый_урон_игрока стоймость_атаки стоймость_защиты
 предметы инвенторя
@@ -89,19 +87,6 @@ def load_data_():
 def exit_():
     print("созранить текущий прогресс?")
     answer = input("(Y / N): ")
-    
-    if(answer.upper() == 'Y'):
-        save_data_()
-
-def main_():
-    load_data_()
-    
-    while(True):
-        if(battle_cycle() == 2):
-            exit_()
-            return
-        
-        if(not check_hp()): return
 
 
 main_()
