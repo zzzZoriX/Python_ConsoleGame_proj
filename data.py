@@ -3,7 +3,7 @@ energy_per_round: int = 1
 # действия игркоа #
 player_actions = [
     "attack",
-    "check stats",
+    "checkstats",
     "inventory",
     "skip",
     "exit"
