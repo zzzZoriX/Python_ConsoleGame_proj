@@ -1,27 +1,32 @@
-# статы врага #
-enemy_hp: float = 50
-enemy_damage: float = 10
-enemy_atack_chance: float = 0.5
-enemy_defends_chance: float = 0.5
-enemy_absorbed_damage_proc: float = 0.55
-drops_money: int = 10
-
-# статы игрока #
-player_hp: float = 100
-player_damage: float = 5.0
-player_absorbed_damage_proc: float = 0.5
-player_energy: int = 10
-
-player_balance: int = 0
-player_exp: int = 1
-
-player_attack_energy_cost: int = 2
-player_defends_energy_cost: int = 1
 energy_per_round: int = 1
 
+# действия игркоа #
 player_actions = [
     "attack",
     "check stats",
     "inventory",
-    "skip"
+    "skip",
+    "exit"
+]
+
+# стата игрока #
+player_stats = [
+    5.0,        # урон                              индекс 0
+    100.0,      # хп                                индекс 1
+    0.0,        # баланс                            индекс 2
+    1.0,        # уровень                           индекс 3
+    10.0,       # энергия                           индекс 4
+    0.5,        # отражаемый урон (в процентах)     индекс 5
+    1.0,        # стоймость блока                   индекс 6
+    2.0         # стоймость атаки                   индекс 7
+]
+
+# стата врага #
+enemy_stats = [
+    10.0,       # урон                              индекс 0
+    50.0,       # хп                                индекс 1
+    0.55,       # отражаемый урон (в процентах)     индекс 2
+    0.5,        # шанс атаки (в процентах)          индекс 3
+    0.5,        # шанс блока (в процентах)          индекс 4
+    10.0        # сбрасываемые монеты при смерти    индекс 5
 ]
