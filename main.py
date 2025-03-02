@@ -87,6 +87,21 @@ def load_data_():
 def exit_():
     print("созранить текущий прогресс?")
     answer = input("(Y / N): ")
+    
+    if(answer.upper() == 'Y'):
+        save_data_()
+    
+    
+def main_():
+    load_data_()
+    
+    while(True):
+        if(battle_cycle() == 2):
+            exit_()
+            return
+        
+        if(not check_hp()):
+            break
 
 
 main_()
