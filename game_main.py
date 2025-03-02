@@ -17,6 +17,7 @@ def battle_cycle() -> int:
         while(action not in data.player_actions):
             print("неизвестное действие!\n")
             action = input("> ").replace(' ', '')
+            
         
         if(action == data.player_actions[0]): # атака
             player_attack()
@@ -50,6 +51,8 @@ def battle_cycle() -> int:
         if(enemy_attack() and action.upper() == 'Y'):
             player_defends() 
             
+        data.player_stats[4] += data.energy_per_round
+            
     return 0
     
     
@@ -59,6 +62,7 @@ def check_hp() -> int:
         return 0
         
     elif(data.enemy_stats[1] <= 0):
-        print("враг побежден")
+        print("враг побежден\n")
         enemy_defeated()
+        enemy_buff()
         return 1
