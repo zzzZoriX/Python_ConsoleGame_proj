@@ -23,5 +23,17 @@ player_actions = [
     "attack",
     "check stats",
     "inventory",
-    "skip"
+    "skip",
+    "exit"
+]
+
+player_stats = [
+    player_hp,
+    player_damage,
+    player_energy,
+    player_absorbed_damage_proc,
+    player_attack_energy_cost,
+    player_defends_energy_cost,
+    player_balance,
+    player_exp
 ]

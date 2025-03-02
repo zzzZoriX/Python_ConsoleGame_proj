@@ -7,11 +7,11 @@ def open_inventory(): pass
 def check_stats(): pass
 
 # игровые функции #
-def battle_cycle():
+def battle_cycle() -> int:
     while(data.enemy_hp > 0 and data.player_hp > 0):
         print(f"\nздоровье врага: {data.enemy_hp}\nваше здоровье: {data.player_hp}\nваша энергия: {data.player_energy}\n")
 
-        print("выберите действие:\n  attack (-2 энергии)\n  inventory\n  skip (+1 енергия)\n  check stats")
+        print("выберите действие:\n  attack (-2 энергии)\n  inventory\n  skip (+1 енергия)\n  check stats\n  exit")
         action = input("> ")
         while(action not in data.player_actions):
             print("неизвестное действие!\n")
@@ -30,13 +30,17 @@ def battle_cycle():
                   """)
             continue
             
-        elif(action == data.player_actions[3]):
+        elif(action == data.player_actions[2]): # инвентарь
+            continue
+
+        elif(action == data.player_actions[3]): # скип
             if(data.player_energy < 10):
                 data.player_energy += 1
             print()
-            
-        elif(action == data.player_actions[2]): # инвентарь
-            continue
+
+        elif(action == data.player_actions[4]): # выход
+            print("выход...")
+            return 2
         
         
         print("защититься?")
