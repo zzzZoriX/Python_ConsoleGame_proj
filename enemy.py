@@ -1,5 +1,4 @@
-import data
-import random
+import data, random
 from player import lvl_up
 
 # дейдействия противника #
