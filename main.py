@@ -15,9 +15,9 @@ e\ <- от слова enemy
 
 def set_hidden__(attrs, hidden = True):
     if(hidden):
-        ctypes.windll.kernel32.SetFileAttributesW(file_name, attrs | 0x02)
+        ctypes.windll.kernel32.SetFileAttributesW(file_name, attrs | 0x02) # скрываем
     else:
-        ctypes.windll.kernel32.SetFileAttributesW(file_name, attrs & ~0x02)
+        ctypes.windll.kernel32.SetFileAttributesW(file_name, attrs & ~0x02) # показываем
 
 
 def save_data_(): 
@@ -62,6 +62,9 @@ def load_data_():
     except Exception as err:
         print("ошибка - ", err)
         
+    file_size = os.stat(file_name)
+    if(not file_size.st_size): return # если файл сохранения пустой
+        
     data_buffer = ' '.join(save_file_stream.read().split('\n')).split()
     save_file_stream.close()
     
@@ -82,6 +85,8 @@ def load_data_():
             current_is_enemy_data = True
 
         i += 1
+        
+    set_hidden__(attrs)
     
 
 def exit_():
@@ -90,9 +95,6 @@ def exit_():
     
     if(answer.upper() == 'Y'):
         save_data_()
-        
-    else:
-        os.remove(file_name)
     
     
 def main_():
