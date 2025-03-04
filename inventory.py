@@ -1,6 +1,6 @@
 import data, shop, game_main as gm
 
-inventory = []
+inventory: list[str] = []
 size = 10
 
 def show_inventory():
@@ -12,7 +12,9 @@ def show_inventory():
     else:
         print("инвентарь пуст\n")
         
-def use_item():
+def use_item() -> bool:
+    if(not len(inventory)): return False
+    
     print("хотите что-то использовать?")
     answ = input("(Y / N): ").upper()
     
@@ -29,6 +31,8 @@ def use_item():
     
     elif(answ == 'Y' and gm.item_was_used == 1.0):
         print("вы уже использовали предмет в этом бою")
+        
+    return True
 
 def hp_buster():
     data.player_stats[1] += float(int(data.player_stats[1] * shop.shop_items[0]))

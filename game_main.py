@@ -7,7 +7,7 @@ item_was_used = 0.0
 
 # другие действия #
 def check_stats():
-    print(f"""
+    print(f""" 
             HP: {data.player_stats[1]}
             урон: {data.player_stats[0]}
             уровень: {data.player_stats[3]}
@@ -37,10 +37,9 @@ def battle_cycle() -> int:
             
         elif(action == data.player_actions[2]): # инвентарь
             inv.show_inventory()
-            inv.use_item()
-            
-            global item_was_used
-            item_was_used = 1.0
+            if(inv.use_item()):
+                global item_was_used
+                item_was_used = 1.0
             
             continue
         

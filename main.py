@@ -34,7 +34,8 @@ def save_data_():
             
         # инвентарь
         for item in inv.inventory:
-            data_buffer = data_buffer + item + "\n"
+            item_to_write = item.replace(' ', '/space/')
+            data_buffer = data_buffer + item_to_write + "\n"
 
         # стата врага
         data_buffer = data_buffer + 'e\\\n'
@@ -68,6 +69,7 @@ def load_data_():
     
     except Exception as err:
         print("ошибка - ", err)
+        return
         
     file_size = os.stat(file_name)
     if(not file_size.st_size): return # если файл сохранения пустой
@@ -87,13 +89,13 @@ def load_data_():
             data.enemy_stats[k] = float(data_buffer[i])
             k += 1
             
+        elif(not current_is_enemy_data and data_buffer[i] != 'e\\'):
+            inv.inventory.append(data_buffer[i].replace('/space/', ' '))
         
         if(data_buffer[i] == 'e\\'):
             k = 0
             current_is_enemy_data = True
         
-        elif(not current_is_enemy_data and k >= len(data.player_stats)):
-            inv.inventory.append(data_buffer[i])
 
         i += 1
         
