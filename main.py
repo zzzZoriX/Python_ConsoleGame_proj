@@ -1,7 +1,6 @@
-import os, ctypes, game_main as gm, data, inventory as inv
+import os, game_main as gm, data, inventory as inv
 
 file_name = "save_data.txt"
-attrs = ctypes.windll.kernel32.GetFileAttributesW(file_name)
 
 """
 p\ <- от слова player
@@ -12,19 +11,10 @@ e\ <- от слова enemy
 """    
 
 
-def set_hidden__(attrs, hidden = True):
-    if(hidden):
-        ctypes.windll.kernel32.SetFileAttributesW(file_name, attrs | 0x02) # скрываем
-    else:
-        ctypes.windll.kernel32.SetFileAttributesW(file_name, attrs & ~0x02) # показываем
-
-
 def save_data_(): 
     save_file_stream = None
     
-    try:
-        set_hidden__(attrs, False)
-        
+    try: 
         save_file_stream = open(file_name, "w", encoding='utf8')
         
         # стата игрока
@@ -51,15 +41,12 @@ def save_data_():
         if(save_file_stream is not None):
             save_file_stream.close()
     
-        set_hidden__(attrs)
     
     
 def load_data_():
     save_file_stream = None
     
     try:
-        set_hidden__(attrs, False)
-        
         save_file_stream = open(file_name, "r", encoding='utf8')
     
     except FileNotFoundError:
@@ -81,6 +68,12 @@ def load_data_():
     k = 0 # инедкс массивов статов
     current_is_enemy_data = False
     while(i != len(data_buffer)):
+        if(data_buffer[i] == 'e\\'):
+            k = 0
+            current_is_enemy_data = True
+            i += 1
+            continue
+        
         if(not current_is_enemy_data and k < len(data.player_stats)):
             data.player_stats[k] = float(data_buffer[i])
             k += 1
@@ -92,14 +85,8 @@ def load_data_():
         elif(not current_is_enemy_data and data_buffer[i] != 'e\\'):
             inv.inventory.append(data_buffer[i].replace('/space/', ' '))
         
-        if(data_buffer[i] == 'e\\'):
-            k = 0
-            current_is_enemy_data = True
-        
 
         i += 1
-        
-    set_hidden__(attrs)
     
 
 def exit_():

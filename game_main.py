@@ -17,7 +17,7 @@ def check_stats():
 # игровые функции #
 def battle_cycle() -> int:
     while(data.enemy_stats[1] > 0 and data.player_stats[1] > 0):
-        print(f"\nздоровье врага: {data.enemy_stats[1]}\nваше здоровье: {data.player_stats[1]}\nваша энергия: {data.player_stats[4]}\n")
+        print(f"\nздоровье врага: {data.enemy_stats[1]}/{data.enemy_stats[7]}\nваше здоровье: {data.player_stats[1]}/{data.player_stats[12]}\nваша энергия: {data.player_stats[4]}/{data.player_stats[11]}\n")
 
         print("выберите действие:\n  attack (-2 энергии)\n  inventory\n  shop\n  skip (+1 енергия)\n  check stats\n  exit")
         action = input("> ").replace(' ', '')
