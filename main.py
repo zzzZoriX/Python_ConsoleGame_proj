@@ -1,6 +1,6 @@
 import os, game_main as gm, data, inventory as inv
 
-file_name = "save_data.txt"
+saves_folder = "./saves/"
 
 """
 p\ <- от слова player
@@ -11,11 +11,11 @@ e\ <- от слова enemy
 """    
 
 
-def save_data_(): 
+def save_data_(save_file): 
     save_file_stream = None
     
     try: 
-        save_file_stream = open(file_name, "w", encoding='utf8')
+        save_file_stream = open(save_file, "w", encoding='utf8')
         
         # стата игрока
         data_buffer = 'p\\\n'
@@ -43,22 +43,17 @@ def save_data_():
     
     
     
-def load_data_():
+def load_data_(file):
     save_file_stream = None
     
     try:
-        save_file_stream = open(file_name, "r", encoding='utf8')
-    
-    except FileNotFoundError:
-        create_save_file = open(file_name, "w", encoding='utf8')
-        create_save_file.close()
-        return    
+        save_file_stream = open(file, "r", encoding='utf8')  
     
     except Exception as err:
         print("ошибка - ", err)
         return
         
-    file_size = os.stat(file_name)
+    file_size = os.stat(file)
     if(not file_size.st_size): return # если файл сохранения пустой
         
     data_buffer = ' '.join(save_file_stream.read().split('\n')).split()
@@ -89,25 +84,47 @@ def load_data_():
         i += 1
     
 
-def exit_():
+def exit_(save):
     print("созранить текущий прогресс?")
     answer = input("(Y / N): ")
     
     if(answer.upper() == 'Y'):
-        save_data_()
+        save_data_(save)
     
     
 def main_():
-    load_data_()
+    load_file = saves_folder
+    
+    print(f"  играть - 1\n  выйти - 2")
+    if(int(input('> ')) == 1):
+        save_files = []
+        if(os.path.isdir(saves_folder)):
+            for file in os.listdir(saves_folder):
+                if(os.path.isfile(os.path.join(saves_folder, file))): 
+                    save_files.append(file)
+                    
+        print("введите номер сохранения:")
+        for i in range(0, len(save_files)):
+            print(f"{i + 1}: {save_files[i][0:len(save_files[i]) - 4]}")
+            
+        print("0: новая игра\n")
+        choice = int(input('> '))
+        if(not choice):
+            load_file = load_file + input('введите имя сохранения: ') + '.txt'
+        else:
+            load_file = load_file + save_files[choice - 1]
+    
+    else: return
+    
+    load_data_(load_file)
     gm.item_was_used = data.player_stats[10]
     
     while(True):
         if(gm.battle_cycle() == 2):
-            exit_()
+            exit_(load_file)
             return
         
         if(not gm.check_hp()):
             break
-
 
 main_()
