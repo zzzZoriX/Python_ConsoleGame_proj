@@ -1,14 +1,6 @@
 import os, game_main as gm, data, inventory as inv
 
-saves_folder = "./saves/"
-
-"""
-p\ <- от слова player
-урон_игрока хп_игрока баланс_игрока уровень_игрока енергия_игрока отражаемый_урон_игрока стоймость_защиты стоймость_атавки опыт_для_некст_уровня текущий_опыт был_ли_использован_предмет
-предметы инвенторя
-e\ <- от слова enemy
-урон_врага хп_врага отражаемый_урон_врага шанс_атаки_врага шанс_защиты_врага деньги_выпадающие_с_врага дроп_опыт полное_здоровье
-"""    
+saves_folder = os.getcwd() + "/saves/"  
 
 
 def save_data_(save_file): 
@@ -94,14 +86,16 @@ def exit_(save):
     
 def main_():
     load_file = saves_folder
+
+    if(not os.path.isdir(saves_folder)): # создана ли папка
+        os.makedirs(save_files, True)
     
     print(f"  играть - 1\n  выйти - 2")
     if(int(input('> ')) == 1):
         save_files = []
-        if(os.path.isdir(saves_folder)):
-            for file in os.listdir(saves_folder):
-                if(os.path.isfile(os.path.join(saves_folder, file))): 
-                    save_files.append(file)
+        for file in os.listdir(saves_folder):
+            if(os.path.isfile(os.path.join(saves_folder, file))): 
+                save_files.append(file)
                     
         print("введите номер сохранения:")
         for i in range(0, len(save_files)):
